@@ -18,6 +18,8 @@ def sink(v):
 		return math.tan(v)
 
 def cosk(v):
+	v = v % 360
+
 	if (v >= 45 and v <= 135):
 		v = math.radians(v)
 		return 1 / math.tan(v)
@@ -39,19 +41,28 @@ def asink(y, printValues = False):
 	elif (y == -1):
 		return "between 225 and 315 degrees"
 	else:
-		v = math.degrees(math.atan(y))
-		if (printValues): print(f"{v} or {180 - v}")
-		return [v, 180 - v]
+		v1 = math.degrees(math.atan(y))
+		v2 = 180 - v1
+		if (printValues): print(f"{v1} or {v2}")
+		return [v1, v2]
 
 def acosk(x, printValues = False):
 	if (x < -1 or x > 1): return "only defined for -1 >= x <= 1"
 	if (x == 0):
 		return [90, 270]
 	elif (x == 1):
-		return "between 270 and 45 degrees"
+		return "between -45 and 45 degrees"
 	elif (x == -1):
 		return "between 135 and 225 degrees"
 	else:
-		v = math.degrees(math.atan(1 / x))
-		if (printValues): print(f"{v} or {360 - v}")
-		return [v, 360 - v]
+		v1 = None
+
+		if (x > 0):
+			v1 = math.degrees(math.atan(1 / x))
+		else:
+			v1 = math.degrees(math.atan(1 / x)) + 180
+
+		v2 = 360 - v1
+
+		if (printValues): print(f"{v1} or {v2}")
+		return [v1, v2]
